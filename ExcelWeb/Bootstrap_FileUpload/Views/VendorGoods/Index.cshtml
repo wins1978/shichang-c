@@ -50,6 +50,7 @@
                                 <option value="@item.ID">@item.VENDOR</option>
                             }
                         </select>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chkAllPrice" id="chkAllPrice">更新所有价格（不更新的改为0）</input>
                     </div>
                     <div id="divcontainer">
                         @foreach (var vList in ViewBag.VendorList)
@@ -273,6 +274,7 @@
                 //if (!operate.operateCheck(arrselectedData)) { return; }
                 $("#divGoodsName").hide();
                 $("#txt_UNIT_PRICE").hide();
+                $("input:checkbox[name='chkAllPrice']").prop('checked', false);
                 showPrice();
                 action = "UPDATE";
                 $("#ddlVENDER2").change(function () {
@@ -331,6 +333,7 @@
                 //取到当前的viewmodel$
                 var oViewModel = operate.DepartmentModel;
                 var vendorText = $("#ddlVENDER2").find("option:selected").text();
+                var allPrice = $("input:checkbox[name='chkAllPrice']:checked").val();
                 operate.DepartmentModel.VENDER(vendorText);
                 operate.DepartmentModel.UNIT_PRICE($("#txt_UNIT_PRICE").val());
                 //将Viewmodel转换为数据model
@@ -341,6 +344,18 @@
 
                 var goodsPrices = getPrices();
 
+                if (allPrice == "on") {
+                    allPrice = "all";
+                } else {
+                    allPrice = "none";
+                }
+                if (allPrice == "all") {
+                    if (window.confirm('你将更新所有价格，确定？')) {
+                    }
+                    else {
+                        return false;
+                    }
+                }
 
                 var oDataModel = ko.toJS(oViewModel);
                 var funcName = action;// oDataModel.ID ? "Update" : "Add";
@@ -348,7 +363,8 @@
                 var parmModel = {
                     VendorGoods: oDataModel,
                     GoodsNameStr: ddl_goods_name,
-                    GoodsPriceStr: goodsPrices
+                    GoodsPriceStr: goodsPrices,
+                    IsAllPrice: allPrice
                 }
 
                 $.ajax({

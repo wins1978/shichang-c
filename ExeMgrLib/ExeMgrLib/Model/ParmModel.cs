@@ -15,5 +15,7 @@ namespace ExeMgrLib.Model
 
         public string GoodsPriceStr { get; set; }
 
+        public string IsAllPrice { get; set; }
+
     }
 }

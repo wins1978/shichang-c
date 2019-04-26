@@ -208,6 +208,41 @@ namespace Bootstrap_FileUpload.Controllers
                     vendorGoodsUpdateList.Add(vg);
                 }
             }
+
+            //更新所有价格
+            if (pModel.IsAllPrice == "all")
+            {
+                if (vendorGoodsUpdateList.Count > 0)
+                {
+                    using (var db = new OracleDataAccess())
+                    {
+                        foreach (var item in vendorGoodsUpdateList)
+                        {
+                            if (item.UNIT_PRICE.HasValue && item.UNIT_PRICE.Value < 0.001M)
+                            {
+                                continue;
+                            }
+
+                            List<EXCEL_VENDOR_GOODS> all = new List<EXCEL_VENDOR_GOODS>();
+                            all = db.GetItems<EXCEL_VENDOR_GOODS>(o => o.GOODS_NAME == item.GOODS_NAME);
+                            foreach (var dd in all)
+                            {
+                                dd.UNIT_PRICE = item.UNIT_PRICE;
+                            }
+                            db.UpdateItems<EXCEL_VENDOR_GOODS>(all, new string[] { "UNIT_PRICE" });
+                        }
+                    }
+
+                    status = "更新成功";
+                }
+                else
+                {
+                    status = "没有可更新的记录";
+                }
+                return Json(status, JsonRequestBehavior.AllowGet);
+            }
+
+
             if (vendorGoodsUpdateList.Count > 0)
             {
                 using (var db = new OracleDataAccess())
