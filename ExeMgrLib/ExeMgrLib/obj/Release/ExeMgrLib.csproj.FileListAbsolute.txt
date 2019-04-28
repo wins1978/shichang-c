@@ -265,3 +265,4 @@ E:\WINTRYSKY\shichang-c\ExeMgrLib\ExeMgrLib\bin\Release\System.Runtime.CompilerS
 E:\WINTRYSKY\shichang-c\ExeMgrLib\ExeMgrLib\obj\Release\ExeMgrLib.csproj.CoreCompileInputs.cache
 E:\WINTRYSKY\shichang-c\ExeMgrLib\ExeMgrLib\obj\Release\ExeMgrLib.dll
 E:\WINTRYSKY\shichang-c\ExeMgrLib\ExeMgrLib\obj\Release\ExeMgrLib.pdb
+E:\WINTRYSKY\shichang-c\ExeMgrLib\ExeMgrLib\obj\Release\ExeMgrLib.csprojResolveAssemblyReference.cache

@@ -29,6 +29,10 @@ namespace ExeMgrLib
             hssfworkbook.Write(file);
             file.Close();
         }
+        protected void CloseIt()
+        {
+            hssfworkbook.Close();
+        }
 
         /// <summary>
         /// yyyyMMdd ==>yyyy-MM-dd
